@@ -1,8 +1,6 @@
 package entity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -11,7 +9,7 @@ import java.util.List;
 public class Bank {
   private final int N = 5;
   private final List<Operator> operators;
-  private CashBox cashBox;
+  private final CashBox cashBox;
 
 
   public Bank() {
@@ -37,12 +35,13 @@ public class Bank {
     for (Operator operator : operators) {
       if (operator.getQueueSize() == 0) {
         operator.addToQueue(client);
-        break;
+        return;
       } else {
         tempSize = operator.getQueueSize();
         minSize = Math.min(tempSize, minSize);
       }
     }
-   Arrays.stream(operators.toArray()).min(Comparator.comparing(Integer::valueOf))
+    int finalMinSize = minSize;
+    operators.stream().filter(x -> x.getQueueSize() == finalMinSize).findFirst().get().addToQueue(client);
   }
 }

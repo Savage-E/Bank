@@ -14,7 +14,7 @@ public class Operator extends Thread {
 
   private final Queue<Client> queue;
 
-  private CashBox cashBox;
+  private final CashBox cashBox;
 
   public Operator(CashBox cashBox) {
     queue = new LinkedList<>();
@@ -40,27 +40,28 @@ public class Operator extends Thread {
         try {
           queue.wait();
         } catch (InterruptedException e) {
-          //ignored
+          LOGGER.error(e);
         }
         client = queue.remove();
       }
-      LOGGER.info("Starting service the client");
+      LOGGER.info("Starting service the client with " + client.getId() + " id");
       try {
         Thread.sleep(client.getSERVICE_TIME());
       } catch (InterruptedException e) {
-        //ignored
+        LOGGER.error(e);
       }
+      LOGGER.info(client.getId());
       if (client.operation == Client.action.WITHDRAW) {
         if (cashBox.getMoney() < client.getTransactionAmount()) {
           LOGGER.info("Denied operation due to insufficient amount of required amount of money");
         } else {
           cashBox.getMoney(client.getTransactionAmount());
-          LOGGER.info("Client withdrew " + client.getTransactionAmount() + " from CashBox");
+          LOGGER.info("Client " + client.getId() + "  withdrew " + client.getTransactionAmount() + " from CashBox");
         }
       } else {
 
         cashBox.putMoney(client.getTransactionAmount());
-        LOGGER.info("Client deposit " + client.getTransactionAmount() + " from CashBox");
+        LOGGER.info("Client " + client.getId() + " deposit " + client.getTransactionAmount() + " from CashBox");
       }
       LOGGER.info("Service time " + client.getSERVICE_TIME());
       LOGGER.info("Remaining money in CashBox " + cashBox.getMoney());
