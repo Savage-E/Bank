@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Random;
 
 /**
- *
+ * Client entity.
  */
 public class Client {
 

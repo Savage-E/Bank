@@ -2,14 +2,11 @@ package generator;
 
 import entity.Bank;
 import entity.Client;
-import entity.Operator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.function.LongFunction;
-
 /**
- *
+ * Generates new client.
  */
 public class ClientGenerator extends Thread {
   private final static Logger LOGGER = LogManager.getLogger(ClientGenerator.class);

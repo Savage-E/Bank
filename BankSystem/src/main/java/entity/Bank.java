@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Class represents bank model.
  */
 public class Bank {
+  //Amount of operators.
   private final int N = 5;
   private final List<Operator> operators;
   private final CashBox cashBox;
@@ -24,10 +25,13 @@ public class Bank {
 
   }
 
-  public boolean checkMoneyAvailability(int money) {
-    return cashBox.getMoney() < money;
-  }
 
+
+  /**
+   * Chooses queue with min size.
+   *
+   * @param client the client to set to queue
+   */
   public void chooseQueue(Client client) {
 
     int minSize = Integer.MAX_VALUE;

@@ -1,7 +1,7 @@
 package entity;
 
 /**
- *
+ * Bank Cashbox.
  */
 public class CashBox {
 

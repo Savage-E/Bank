@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- *
+ * Service clients.
  */
 public class Operator extends Thread {
   private final static Logger LOGGER = LogManager.getLogger(Operator.class);
@@ -50,10 +50,9 @@ public class Operator extends Thread {
       } catch (InterruptedException e) {
         LOGGER.error(e);
       }
-      LOGGER.info(client.getId());
       if (client.operation == Client.action.WITHDRAW) {
         if (cashBox.getMoney() < client.getTransactionAmount()) {
-          LOGGER.info("Denied operation due to insufficient amount of required amount of money");
+          LOGGER.info("Denied operation due to insufficient amount of required  money");
         } else {
           cashBox.getMoney(client.getTransactionAmount());
           LOGGER.info("Client " + client.getId() + "  withdrew " + client.getTransactionAmount() + " from CashBox");
