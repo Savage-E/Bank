@@ -37,10 +37,12 @@ public class Operator extends Thread {
     Client client;
     while (true) {
       synchronized (queue) {
-        try {
-          queue.wait();
-        } catch (InterruptedException e) {
-          LOGGER.error(e);
+        if (queue.size() == 0) {
+          try {
+            queue.wait();
+          } catch (InterruptedException e) {
+            LOGGER.error(e);
+          }
         }
         client = queue.remove();
       }
